@@ -4,7 +4,7 @@
 
 **Ephemeros** é uma experiência digital efêmera e coletiva.  
 Qualquer pessoa pode acessar o site, de forma completamente anônima, e alterar a frase principal (o `<h1>`) visível por todos.  
-Assim que alguém escreve algo novo, a mensagem anterior desaparece — como se nunca tivesse existido.
+Assim que alguém escreve algo novo, a mensagem anterior desaparece, como se nunca tivesse existido.
 
 Este projeto é uma mistura de arte generativa, caos controlado e poesia digital.
 

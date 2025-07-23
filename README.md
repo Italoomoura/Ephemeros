@@ -1,4 +1,4 @@
-# 🌫️ Ephemeros
+# ✴ Ephemeros
 
 > **Escreva. Veja. Desapareça.**
 

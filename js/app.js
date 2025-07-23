@@ -31,7 +31,6 @@ function atualizarComNovaMensagem(novaMsg) {
   }
 }
 
-
 async function carregarMensagens() {
   const { data, error } = await supabase
     .from('mensagens')
@@ -88,6 +87,16 @@ async function toggleHistorico() {
     historicoVisivel = false
     btn.innerText = 'Mostrar histórico completo'
   }
+}
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').then(reg => {
+      console.log('Service Worker registrado:', reg)
+    }).catch(err => {
+      console.log('Service Worker falhou:', err)
+    })
+  })
 }
 
 document.getElementById('btnEnviar').addEventListener('click', enviar)

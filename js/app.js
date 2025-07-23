@@ -30,5 +30,24 @@ async function enviar() {
   carregarMensagens()
 }
 
+async function mostrarHistoricoCompleto() {
+  const { data, error } = await supabase
+    .from('mensagens')
+    .select('*')
+    .order('criada_em', { ascending: false }) // mais recentes primeiro
+
+  if (data && data.length > 0) {
+    const ul = document.getElementById('listaHistorico')
+    ul.innerHTML = ''
+    data.forEach((msg, index) => {
+      const li = document.createElement('li')
+      li.innerText = msg.conteudo
+      ul.appendChild(li)
+    })
+  }
+}
+
 document.getElementById('btnEnviar').addEventListener('click', enviar)
+document.getElementById('btnMostrarHistorico').addEventListener('click', mostrarHistoricoCompleto)
+
 carregarMensagens()

@@ -1,0 +1,3 @@
+export const SUPABASE_URL = 'https://lcvmhsnbhjgdsslxejgn.supabase.co'
+export const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imxjdm1oc25iaGpnZHNzbHhlamduIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTMyMzc4MTEsImV4cCI6MjA2ODgxMzgxMX0.TtoERY8IO1SjJvMiDOJ3C9ItMHvRIVPVmiSRuoNZ3Ag'
+

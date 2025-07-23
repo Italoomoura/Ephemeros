@@ -3,6 +3,35 @@ import { SUPABASE_URL, SUPABASE_KEY } from './config.js'
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY)
 
+const canal = supabase.channel('mensagens-realtime')
+
+canal
+  .on(
+    'postgres_changes',
+    { event: 'INSERT', schema: 'public', table: 'mensagens' },
+    payload => {
+      console.log('Nova mensagem inserida:', payload.new)
+      atualizarComNovaMensagem(payload.new)
+    }
+  )
+  .subscribe()
+
+function atualizarComNovaMensagem(novaMsg) {
+  // Atualiza a mensagem atual
+  const h1 = document.getElementById('msgAtual')
+  h1.innerText = novaMsg.conteudo
+
+  // Adiciona a antiga mensagem atual ao histórico
+  const ul = document.getElementById('listaHistorico')
+  const anterior = h1.innerText
+  if (anterior && anterior !== novaMsg.conteudo) {
+    const li = document.createElement('li')
+    li.innerText = anterior
+    ul.insertBefore(li, ul.firstChild) // insere no topo
+  }
+}
+
+
 async function carregarMensagens() {
   const { data, error } = await supabase
     .from('mensagens')

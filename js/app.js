@@ -8,7 +8,7 @@ async function carregarMensagens() {
     .from('mensagens')
     .select('*')
     .order('criada_em', { ascending: false })
-    .limit(5)
+    .limit(6)
 
   if (data && data.length > 0) {
     document.getElementById('msgAtual').innerText = data[0].conteudo
@@ -30,24 +30,38 @@ async function enviar() {
   carregarMensagens()
 }
 
-async function mostrarHistoricoCompleto() {
-  const { data, error } = await supabase
-    .from('mensagens')
-    .select('*')
-    .order('criada_em', { ascending: false }) // mais recentes primeiro
+let historicoVisivel = false
 
-  if (data && data.length > 0) {
-    const ul = document.getElementById('listaHistorico')
-    ul.innerHTML = ''
-    data.forEach((msg, index) => {
-      const li = document.createElement('li')
-      li.innerText = msg.conteudo
-      ul.appendChild(li)
-    })
+async function toggleHistorico() {
+  const btn = document.getElementById('btnToggleHistorico')
+  const ul = document.getElementById('listaHistorico')
+
+  if (!historicoVisivel) {
+    // Mostrar histórico completo
+    const { data, error } = await supabase
+      .from('mensagens')
+      .select('*')
+      .order('criada_em', { ascending: false })
+
+    if (data && data.length > 0) {
+      ul.innerHTML = ''
+      data.slice(1).forEach(msg => {
+        const li = document.createElement('li')
+        li.innerText = msg.conteudo
+        ul.appendChild(li)
+      })
+      historicoVisivel = true
+      btn.innerText = 'Ocultar histórico'
+    }
+  } else {
+    // Ocultar e voltar a exibir só os últimos
+    await carregarMensagens()
+    historicoVisivel = false
+    btn.innerText = 'Mostrar histórico completo'
   }
 }
 
 document.getElementById('btnEnviar').addEventListener('click', enviar)
-document.getElementById('btnMostrarHistorico').addEventListener('click', mostrarHistoricoCompleto)
+document.getElementById('btnToggleHistorico').addEventListener('click', toggleHistorico)
 
 carregarMensagens()

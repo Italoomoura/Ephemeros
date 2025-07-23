@@ -80,6 +80,11 @@ ul#listaHistorico li {
   word-wrap: break-word;
 }
 
+#btnToggleHistorico {
+  margin-top: 10px;
+}
+
+
 /* Responsividade */
 @media (max-width: 480px) {
   h1 {
@@ -95,3 +100,4 @@ ul#listaHistorico li {
     width: 100%;
   }
 }
+
